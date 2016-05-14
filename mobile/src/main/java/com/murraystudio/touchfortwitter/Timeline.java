@@ -46,7 +46,7 @@ public class Timeline extends Fragment {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Timeline");
 
-        tweetEx = (TextView) view.findViewById(R.id.tweet1);
+        tweetEx = (TextView) view.findViewById(R.id.tweets);
 
         session = Twitter.getSessionManager().getActiveSession();
 
@@ -77,12 +77,12 @@ public class Timeline extends Fragment {
             }
         });
 
-        statusesService.homeTimeline(5, null, null, null, false, false, false, new Callback<List<Tweet>>() {
+        statusesService.homeTimeline(20, null, null, null, false, false, false, new Callback<List<Tweet>>() {
             @Override
             public void success(Result<List<Tweet>> result) {
                 for(int i = 0; i < result.data.size(); i++) {
                     String msg = tweetEx.getText().toString();
-                    tweetEx.setText(msg + result.data.get(i).text + '\n');
+                    tweetEx.setText(msg + Integer.toString(i + 1) + ". (@" + result.data.get(i).user.screenName + ") " + result.data.get(i).text + "\n \n");
                 }
             }
 
